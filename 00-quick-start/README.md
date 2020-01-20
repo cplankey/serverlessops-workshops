@@ -1,6 +1,6 @@
 # Serverless Quick Start
 
-In this module you'll be introduced to a basic serverless monolithic three tier web application. What we'll deploy and work with in this module is a simpler version of the Wild Rydes tech stack. The purpose of this is to more easilly understand how serverless architecture works without the added complexity that microservices introduce.
+In this module you'll be introduced to a basic serverless monolithic three tier web application. What we'll deploy and work with in this module is a simpler version of the Wild Rydes tech stack. The purpose of this is to more easily understand how serverless architecture works without the added complexity that microservices introduce.
 
 ## Goals and Objectives:
 

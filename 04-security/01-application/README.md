@@ -396,7 +396,7 @@ The wild-rydes service has an application dependency vulnerability. We've been a
 
 * https://github.com/ServerlessOpsIO/wild-rydes/tree/workshop-security-02
 
-Now look for and click the [![Known Vulnerabilities](https://snyk.io/test/github/ServerlessOpsIO/wild-rydes/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/ServerlessOpsIO/wild-rydes?targetFile=requirements.txt) button to be taken to the vulnerability explanation page. You'll see this issue can leak authentication credentials. (This vulnerability does not affect our current usage though.) Click the *More about this issue* link. The next page explains under the *Remediation* heading that the issue was resolved in release 2.20. Update the requests module in the *requetsts.txt* from version *2.19* to *2.20*.
+Now look for and click the [![Known Vulnerabilities](https://snyk.io/test/github/ServerlessOpsIO/wild-rydes/badge.svg?targetFile=requirements.txt)](https://snyk.io/test/github/ServerlessOpsIO/wild-rydes?targetFile=requirements.txt) button to be taken to the vulnerability explanation page. You'll see this issue can leak authentication credentials. (This vulnerability does not affect our current usage though.) Click the *More about this issue* link. The next page explains under the *Remediation* heading that the issue was resolved in release 2.20. Update the requests module in the *requests.txt* from version *2.19* to *2.20*.
 
 
 ```diff
@@ -418,7 +418,7 @@ Q. Our means of passing the API key to the *RequestRide* function is fine except
 
 <details>
 <summary><strong>Hint</strong></summary>
-<p>Notice our function gets the paramater value outside of the function handler.</p>
+<p>Notice our function gets the parameter value outside of the function handler.</p>
 </details>
 
 <details>

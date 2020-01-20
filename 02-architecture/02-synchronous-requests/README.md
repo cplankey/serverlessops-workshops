@@ -34,7 +34,7 @@ While continuing with a web microservices pattern using API Gateway and Lambda i
   * API Gateway requests are charged independent of Lambda invocations
 * Added request latency.
 
-In this module we'll demonstrate how to bypass API Gateway and have one Lambda function invoke another directly for making a synchronus request. Instead of an HTTP endpoint providing a stable interface to trigger our code, we will trigger a function handler directly using an [AWS SDK API for Lambda function invocation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke). Depending on your needs, this can be a useful pattern for application.
+In this module we'll demonstrate how to bypass API Gateway and have one Lambda function invoke another directly for making a synchronous request. Instead of an HTTP endpoint providing a stable interface to trigger our code, we will trigger a function handler directly using an [AWS SDK API for Lambda function invocation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke). Depending on your needs, this can be a useful pattern for application.
 
 ![Lambda Invoke Request](../../images/wild-rydes-lambda-invoke.png)
 
@@ -54,7 +54,7 @@ $ sls deploy -v
 
 ### 2. Refactor *wild-rydes-ride-fleet* *GetUnicorn* for direct invocation.
 
-We'll refactor this service so it's possible to easilly get a unicorn from the fleet by directly invoking the function. When done there will be be a new Lambda function that expects to be invoked directly using the [AWS SDK API for Lambda function invocation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke).
+We'll refactor this service so it's possible to easily get a unicorn from the fleet by directly invoking the function. When done there will be be a new Lambda function that expects to be invoked directly using the [AWS SDK API for Lambda function invocation](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke).
 
 _NOTE: We'll create two Lambda functions because we still need the API Gateway for the *LoadTable* Lambda function and custom resource. This way you're not forced to refactor that too._
 
@@ -75,7 +75,7 @@ Start by renaming the python function `handler()` to `handler_apig()` to indicat
 
 -def handler(event, context):
 -    '''Function entry'''
-+def handler_invoke(event, contect):
++def handler_invoke(event, context):
 +    '''Function entry for Lambda synchronous invoke'''
 +    _logger.debug('Request: {}'.format(json.dumps(event)))
 +
@@ -131,9 +131,9 @@ Your _serverless.yml_ file should now have two functions which correspond to the
 </p>
 </details>
 
-Next, create an SSM paramater named `/wild-rydes-ride-fleet/${self:provider.stage}/RequestUnicornInvokeArn` with a value of the ARN of the *RequestUnicornInvoke* Lambda function. You can use the *Fn::GetAtt* CloudFormation function to get the Arn.
+Next, create an SSM parameter named `/wild-rydes-ride-fleet/${self:provider.stage}/RequestUnicornInvokeArn` with a value of the ARN of the *RequestUnicornInvoke* Lambda function. You can use the *Fn::GetAtt* CloudFormation function to get the Arn.
 
-_NOTE: Serverless Framework renames function resourcess in the template it generates by adding "LambdaFunction" onto the end of the name. You'll need to use the Fn::GetAtt with the renamed resource. eg. RequestUnicornInvoke -> RequestUnicornInvokeLambdaFunction _
+_NOTE: Serverless Framework renames function resources in the template it generates by adding "LambdaFunction" onto the end of the name. You'll need to use the Fn::GetAtt with the renamed resource. eg. RequestUnicornInvoke -> RequestUnicornInvokeLambdaFunction _
 
 * [Cloudformation AWS::SSM::Parameter](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-ssm-parameter.html)
 * [Cloudformation function Fn::GetAtt](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/intrinsic-function-reference-getatt.html)
@@ -318,7 +318,7 @@ Next, the code no longer makes an HTTP GET request using the `requests` module. 
 
 The `LAMBDA_CLIENT.invoke()` call returns a Python dictionary. We're interested in the value of the `Payload ` key which has the unicorn information. However the key's value is not a string, it's a file-like object. We'll read the contents of the file-like object, which is a string containing a JSON document, and convert it from binary to ascii. Finally we return that data from the function. _NOTE: We figured most people would get tripped up by having to fetch the response data by reading the contents of a file._
 
-Pyton Boto 3Documentation 
+Python Boto 3Documentation 
 
 - [Boto3 Lambda.Client.invoke()](https://boto3.amazonaws.com/v1/documentation/api/latest/reference/services/lambda.html#Lambda.Client.invoke)
 
@@ -360,7 +360,7 @@ Q. Name benefits of using API Gateway.
   * AWS Cognito
   * Custom authorizers
 * Request throttling
-* AWS WAF integration for filtering malicous traffic.
+* AWS WAF integration for filtering malicious traffic.
 * Ability to generate API documentation
   </p>
   </details>
@@ -391,7 +391,7 @@ Q. Which would you choose and why?
 <details>
 <summary><strong>Possible Answer</strong></summary>
 <p>
-Because where making a request between our own services we can do authentication and authorization, request throttling, and malicous traffic filtering at the user facing service, *wild-rydes*. And since we don't feel we would gain additional advanatges through those benefits of API Gateway on *wild-rydes-ride-fleet*, the cost and latency drawbacks make removing API Gateway appealing.
+Because where making a request between our own services we can do authentication and authorization, request throttling, and malicious traffic filtering at the user facing service, *wild-rydes*. And since we don't feel we would gain additional advantages through those benefits of API Gateway on *wild-rydes-ride-fleet*, the cost and latency drawbacks make removing API Gateway appealing.
 </p>
 </details>
 

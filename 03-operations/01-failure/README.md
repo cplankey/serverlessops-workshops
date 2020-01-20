@@ -54,12 +54,12 @@ This workshop module will involve the following Wild Rydes services.
 To aid us in this module we'll be employing two tools. We'll use one to help us generate failures by automating requests to the service and another tool to help us find the cause of these failures.
 
 #### Artillery
-[Artillery](https://artillery.io/) is a load testing tool taht we will use to simulate traffic on our site. Using this tool we will trigger failures.
+[Artillery](https://artillery.io/) is a load testing tool that we will use to simulate traffic on our site. Using this tool we will trigger failures.
 
 #### Thundra
 [Thundra](https://thundra.io) is a serverless monitoring and observability platform designed for AWS Lambda environments. The platform will collect function invocation metrics and logs that will help us diagnose the cause of the issues we find.
 
-In this workshop we're using Thundra over AWS CloudWatch, which provides metrics and logging automatically for Lambda functions. We picked Thundra in part because we find it easier to navigate and illustreate what we want people to see. _(From a workshop perspective, we also use it because we don't to grant attendees AWS Console access in our accounts.)_
+In this workshop we're using Thundra over AWS CloudWatch, which provides metrics and logging automatically for Lambda functions. We picked Thundra in part because we find it easier to navigate and illustrate what we want people to see. _(From a workshop perspective, we also use it because we don't to grant attendees AWS Console access in our accounts.)_
 
 ## Instructions
 
@@ -378,7 +378,7 @@ Error codes:
 <!-- Start collecting traces and logs -->
 Start collecting metrics and logs from *RequestRide* in *wild-rydes* to the Thundra platform. We'll instrument this function by using the [Thundra Python agent](https://github.com/thundra-io/thundra-lambda-agent-python). (You'll instrument the Lambda functions in *wild-rydes-ride-record* in a later module.) By instrumenting the function we'll allow the Thundra platform to start collecting invocation metrics, logs, and trace the length of time spent performing different actions in the Lambda function's code.
 
-*NOTE: Thundra has the ability to automatically instrument functions through the Serverless Framework plugin [serverless-plugin-thundra](https://github.com/thundra-io/serverless-plugin-thundra). This workshop insruments the function manually to demonstrate the actual work involved. We feel this is important for those coming to serverless without an extensive coding background. We want people to see how approachable this work is for non-developers.*
+*NOTE: Thundra has the ability to automatically instrument functions through the Serverless Framework plugin [serverless-plugin-thundra](https://github.com/thundra-io/serverless-plugin-thundra). This workshop instruments the function manually to demonstrate the actual work involved. We feel this is important for those coming to serverless without an extensive coding background. We want people to see how approachable this work is for non-developers.*
 
 #### Add Thundra module
 <!-- FIXME: Evaluate Thundra automated for time. -->
@@ -768,13 +768,13 @@ Q. What CloudWatch metric alarms should be add to be alerted of issues in *wild-
 <summary><strong>Answer</strong></summary>
 <p>
 #### Lambda
-Key ketrics are:
+Key metrics are:
 * Errors
 * Duration
 * Throttles
 
 #### DynamoDB
-Kery metrics are
+Key metrics are
 * SystemErrors
 * ReadThrottleEvents
 * WriteThrottleEvents

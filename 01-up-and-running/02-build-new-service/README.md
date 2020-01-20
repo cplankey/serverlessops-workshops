@@ -36,13 +36,13 @@ Serverless Framework projects are controlled by the _serverless.yml_ file. In th
 ```yaml
 
 # This is the name of service we'll be deploying. You'll see it in the AWS
-# Cloudfromation stack name.
+# Cloudformation stack name.
 service: <NAME>
 
 # Additional functionality and enhancements to Serverless Framework.
 plugins:
 
-# Reuasable values and or plugin configuration.
+# Reusable values and or plugin configuration.
 custom:
 
 
@@ -61,7 +61,7 @@ provider:
 functions:
 
 
-# Addtional service resources and configuration.
+# Additional service resources and configuration.
 resources:
   # Additional AWS resources , e.g. DynamoDB tables, S3 Buckets, etc, are
   # configured here. For AWS, this is just CloudFormation configuration.
@@ -120,14 +120,14 @@ $ nano serverless.yml
 ```yaml
 
 # This is the name of service we'll be deploying. You'll see it in the AWS
-# Cloudfromation stack name.
+# Cloudformation stack name.
 service: wild-rydes-ride-record
 
 # Additional functionality and enhancements to Serverless Framework.
 plugins:
   - serverless-python-requirements
 
-# Reuasable values and or plugin configuration.
+# Reusable values and or plugin configuration.
 custom:
 
 
@@ -153,7 +153,7 @@ functions:
     timeout: 29
 
 
-# Addtional service resources and configuration.
+# Additional service resources and configuration.
 resources:
   # Additional AWS resources , e.g. DynamoDB tables, S3 Buckets, etc, are
   # configured here. For AWS, this is just CloudFormation configuration.
@@ -248,7 +248,7 @@ The following Serverless Framework docs will help:
 <summary><strong>Hint 2</strong></summary>
 <p>
 
-* __IAM role:__ Your role will need to frant the _dynamodb:PutItem_ permission to the _RideRecordTable_ DynamoDB table. You can use the [Fn::GetAtt function](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#w2ab1c21c10d413c15) to obtain the table's _Arn_ value.
+* __IAM role:__ Your role will need to grant the _dynamodb:PutItem_ permission to the _RideRecordTable_ DynamoDB table. You can use the [Fn::GetAtt function](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#w2ab1c21c10d413c15) to obtain the table's _Arn_ value.
 * __Function environmental variables:__ Use the [Ref function](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-dynamodb-table.html#w2ab1c21c10d413c15) to obtain the DynamoDB table's name.
 </p>
 </details>
@@ -344,7 +344,7 @@ Take a look at the sample event under [tests/events/put_ride_record.json](https:
 <details>
 <summary><strong>Hint 2</strong></summary>
 <p>
-This is the Python Boto3 dcumentation for working with a DynamoDB table.
+This is the Python Boto3 documentation for working with a DynamoDB table.
 
 * [Boto3 DynamoDB.Table](https://boto3.readthedocs.io/en/latest/reference/services/dynamodb.html#table)
 </p>
@@ -765,14 +765,14 @@ Q. What are the different sections of the _serverless.yml_ file for?
 
 **plugins:** Serverless Framework's core functionality can be extended by the use of plugins. In this section we list the plugins a service requires.
 
-**custom:** This section is uusally used for two purposes
+**custom:** This section is usually used for two purposes
 
 1) Defining variables that will be used elsewhere in the file
 1) Plugin configuration.
 
 **provider:** This is where we configure the service for the serverless provider the service is to be deployed.
 
-**resources:** Some AWS serverless systems require more than AWS Lambda. This section is where we configure those resources using [AWS CLoudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
+**resources:** Some AWS serverless systems require more than AWS Lambda. This section is where we configure those resources using [AWS CloudFormation](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-template-resource-type-ref.html).
 </p>
 </details>
 

@@ -2,7 +2,7 @@
 
 In this module we'll cover event driven architecture and asynchronous service communication. We'll do this by refactoring the _wild-rydes-ride-record_ service to support an event driven architecture in addition to its microservice web request architecture.
 
-Additionally, we'll revisit service discovery between services by introducing AWS Systems Manager Paramater Store (SSM).
+Additionally, we'll revisit service discovery between services by introducing AWS Systems Manager Parameter Store (SSM).
 
 ## Goals and Objectives
 
@@ -31,13 +31,13 @@ To improve the user's experience we'll convert the process of recording rides to
 
 ![Service Diagram](../../images/wild-rydes-event-driven.png)
 
-Instead of *RequetRide* in the *wild-rydes* service making a web request to the *wild-rydes-ride-record* service to trigger the *RecordRide* Lambda function, *RequestRide* will publish a message to an SNS topic. The *wild-rydes-ride-record* service will have a function that is subscribed to the SNS topic which will write the ride data to DynamoDB. This will allow *RequestRide* to complete and return information to the user without needing to wait for our backend service to write to DynamoDB.
+Instead of *RequestRide* in the *wild-rydes* service making a web request to the *wild-rydes-ride-record* service to trigger the *RecordRide* Lambda function, *RequestRide* will publish a message to an SNS topic. The *wild-rydes-ride-record* service will have a function that is subscribed to the SNS topic which will write the ride data to DynamoDB. This will allow *RequestRide* to complete and return information to the user without needing to wait for our backend service to write to DynamoDB.
 
 ## Service Discovery
 
- In a previous module we had wild-rydes-ride-record export a URL as a CloudFormation output and wild-rydes queried the value from CloudFormation. This time we’re exporting an SNS topic ARN to AWS Systems Manager Paramater Store (SSM) instead of CloudFormation. SSM is a key-value store and provides an alternative way to perform service discovery in AWS among other uses. We’ll use SSM increasingly in later workshop modules.
+ In a previous module we had wild-rydes-ride-record export a URL as a CloudFormation output and wild-rydes queried the value from CloudFormation. This time we’re exporting an SNS topic ARN to AWS Systems Manager Parameter Store (SSM) instead of CloudFormation. SSM is a key-value store and provides an alternative way to perform service discovery in AWS among other uses. We’ll use SSM increasingly in later workshop modules.
 
-Which should you use? It’s a matter of preference. CloudFormation outputs can only be modified by CloudFormation. However, SSM’s hierarchical key paths make it possible to create IAM policies that grant slective read and write capabilities to different keys.
+Which should you use? It’s a matter of preference. CloudFormation outputs can only be modified by CloudFormation. However, SSM’s hierarchical key paths make it possible to create IAM policies that grant selective read and write capabilities to different keys.
 
 ## Instructions
 
@@ -72,7 +72,7 @@ Create an SNS topic which *RequestRide* will publish ride information too. Inste
 
 This change will:
 * Decrease the average duration of the *RequestRide* function.
-* Reduce the liklihood of downstream services inducing failure.
+* Reduce the likelihood of downstream services inducing failure.
 * Allow for adding more downstream services without altering *RequestRide*
 
 
@@ -179,7 +179,7 @@ Reference the CloudFormation documentation here:
 </p>
 </details>
 
-#### Pass SNS topic ARN to *RequestRide* Lamda function
+#### Pass SNS topic ARN to *RequestRide* Lambda function
 The *RequestRide* function now needs to publish to the SNS topic. Edit _serverless.yml_ to pass the SNS topic's ARN to the *RequestRide* function as an environmental variable named *RIDES_SNS_TOPIC_ARN*. Use the CloudFormation *Ref* function again to get the ARN of the SNS topic you  created in previous steps. While you're here, remove the *RIDE_RECORD_URL* environmental variable as it will no longer be necessary.
 
 Reference the Serverless Framework and CloudFormation documentation here:
@@ -778,7 +778,7 @@ How to trigger a Lambda function via an SNS event can be found here:
 +++ b/serverless.yml
 @@ -16,6 +16,9 @@ custom:
    ddb_table_hash_key: 'RideId'
-   sevrice_url_path_base: '/record'
+   service_url_path_base: '/record'
  
 +  wild_rydes_sns_topic_arn: "${ssm:/wild-rydes/${self:custom.stage}/SnsTopicArn}"
 +
@@ -788,7 +788,7 @@ How to trigger a Lambda function via an SNS event can be found here:
    runtime: python3.6
 @@ -50,6 +53,17 @@ functions:
            method: POST
-           path: "${self:custom.sevrice_url_path_base}"
+           path: "${self:custom.service_url_path_base}"
  
 +  PutRideRecordSns:
 +    handler: handlers/put_ride_record.handler_sns

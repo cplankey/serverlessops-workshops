@@ -6,7 +6,7 @@ Good ideas: https://www.puresec.io/blog/aws-security-best-practices-config-rules
 
 In this module we'll find and fix infrastructure security issues. We'll find and fix common mistakes in configuration that many people make. Much of this module will revolve around misconfiguration of IAM permissions.
 
-We're going to deploy a new small service called *wild-rydes-data-lake* which takes ride data and places it into an S3 data lake to be used by analysis tools. We've also added functionality to *wild-rydes-ride-record*. Both of these services have securiuty issues we'll address.
+We're going to deploy a new small service called *wild-rydes-data-lake* which takes ride data and places it into an S3 data lake to be used by analysis tools. We've also added functionality to *wild-rydes-ride-record*. Both of these services have security issues we'll address.
 
 ## Goals and Objectives:
 
@@ -95,7 +95,7 @@ This service takes ride data and deposits it to S3 for analysis.
 
 ### wild-rydes-ride-record
 
-The *wild-rydes-ride-data-lake* service will subscribe to the DynamoDB stream from *wild-rydes-ride-recrd* and write data from it to the data lake. (We've updated *wild-rydes-ride-record* tom export the stream's ARN to SSM Parameter Store so *wild-rydes-ride-data-lake* can suvscribe to it.)
+The *wild-rydes-ride-data-lake* service will subscribe to the DynamoDB stream from *wild-rydes-ride-recrd* and write data from it to the data lake. (We've updated *wild-rydes-ride-record* tom export the stream's ARN to SSM Parameter Store so *wild-rydes-ride-data-lake* can subscribe to it.)
 
 ## Instructions
 
@@ -318,7 +318,7 @@ Serverless: Installing plugin "serverless-iam-roles-per-function@latest" (this m
 Serverless: Successfully installed "serverless-iam-roles-per-function@latest"
 </p>
 </details>
-With the plugin installed start updating the *serverless.yml* file so each Lambda function has its own IAM role with only the priveleges it needs in order to function. The process involves removing the `provider.iamRoleStatements` property and creating `iamRoleStatement` properties for each Lambda function. (eg. `functions.PutRideRecordHttp.iamRoleStatement`)
+With the plugin installed start updating the *serverless.yml* file so each Lambda function has its own IAM role with only the privileges it needs in order to function. The process involves removing the `provider.iamRoleStatements` property and creating `iamRoleStatement` properties for each Lambda function. (eg. `functions.PutRideRecordHttp.iamRoleStatement`)
 
 Each function should have a role statement or statements that grants only the access the functions needs in order to function. For example, the *PutRideRecordSns* Lambda function only needs to be able to perform *dynamodb:PutItem* on the *RideRecordTable* DynamoDB table and *sqs:SendMessage* on the *PutRideRecordSnsDlq* deadletter SQS queue.
 
@@ -499,7 +499,7 @@ _NOTE: We would never create AWS Config rules like this, on a per service basis,
 
 You'll need to refer to the following documentation to complete this step.
 
-- [Cloudfromation AWS::Config::ConfigRule](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configrule.html)
+- [Cloudformation AWS::Config::ConfigRule](https://docs.aws.amazon.com/AWSCloudFormation/latest/UserGuide/aws-resource-config-configrule.html)
 - [s3-bucket-public-read-prohibited config rule](https://docs.aws.amazon.com/config/latest/developerguide/s3-bucket-public-read-prohibited.html)
 - [s3-bucket-public-write-prohibited config rule](https://docs.aws.amazon.com/config/latest/developerguide/s3-bucket-public-write-prohibited.html)
 
@@ -582,7 +582,7 @@ Once you've updated the *serverless.yml* file, deploy the updated *wild-rides-ri
 $ sls deploy -v
 ```
 
-Verify compliance of the *WildRydesDataLakeBucket* S3 bucket using the command line by running the following command. *(CONFIG_RULE_NAME is the value of ConfigRuleName in serverless.yml. eg. S3PublicWriteProhinitedConfigRule-user0)*
+Verify compliance of the *WildRydesDataLakeBucket* S3 bucket using the command line by running the following command. *(CONFIG_RULE_NAME is the value of ConfigRuleName in serverless.yml. eg. S3PublicWriteProhibitedConfigRule-user0)*
 
 ```
 $ aws configservice get-compliance-details-by-config-rule --config-rule-name <CONFIG_RULE_NAME>
@@ -598,7 +598,7 @@ $ aws configservice get-compliance-details-by-config-rule --config-rule-name <CO
         {
             "EvaluationResultIdentifier": {
                 "EvaluationResultQualifier": {
-                    "ConfigRuleName": "S3PublicWriteProhinitedConfigRule-user0",
+                    "ConfigRuleName": "S3PublicWriteProhibitedConfigRule-user0",
                     "ResourceType": "AWS::S3::Bucket",
                     "ResourceId": "wild-rydes-ride-data-lake-wildrydesdatalakebucket-1jhtjotdqf5bb"
                 },

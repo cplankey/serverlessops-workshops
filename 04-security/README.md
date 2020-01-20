@@ -15,12 +15,12 @@ After the workshop the participant should be familiar with common serverless sec
 This workshop's modules will cover the following security concepts.
 
 * API access controls
-  * Configure an API Gateway authorizer to controll access to the API
+  * Configure an API Gateway authorizer to control access to the API
 * Secrets management and storage
   * Secure the API key in SSM Parameter Store, encrypted using KMS, and have a Lambda function fetch the key when invoked.
-* Permissions scope and pinciple of least access
-  * Rescope IAM polices that allow a too broad a range of actions on too broad a range of resoruces
-* Insecure application depenencies
+* Permissions scope and principle of least access
+  * Rescope IAM polices that allow a too broad a range of actions on too broad a range of resources
+* Insecure application dependencies
   * Find and update an application dependency with a reported vulnerability.
 * Security monitoring and remediation
-  * Use AWS Config create a monitoring rule for a previously encvountered security issue.
+  * Use AWS Config create a monitoring rule for a previously encountered security issue.
