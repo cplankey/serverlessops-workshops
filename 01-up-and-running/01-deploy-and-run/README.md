@@ -422,7 +422,7 @@ Q. What do each of these subcommands of Serverless framework do?
 <summary><strong>Hint</strong></summary>
 <p>
 
-* [Serverless Framework CLI Reference](https://serverless.com/framework/docs/providers/aws/cli-reference/)
+* [Serverless Framework CLI Reference](https://serverless.com/framework/docs/providers/aws/)
 </p>
 </details>
 <details>
