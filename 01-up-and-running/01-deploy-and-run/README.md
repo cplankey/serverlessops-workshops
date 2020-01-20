@@ -416,12 +416,27 @@ Q. What do each of these subcommands of Serverless framework do?
 * logs
   * How does the `-t` flag effect output?
 * invoke
+  * How does the `-t` flag effect invocation?
 
 <details>
 <summary><strong>Hint</strong></summary>
 <p>
 
 * [Serverless Framework CLI Reference](https://serverless.com/framework/docs/providers/aws/cli-reference/)
+</p>
+</details>
+<details>
+<summary><strong>Answer</strong></summary>
+<p>
+
+* deploy
+  * `--verbose` or `-v` shows all stack events during deployment, and display any Stack Output.
+* info
+  * `--verbose` or `-v` shows displays any Stack Output.
+* logs
+  * `--tail` or `-t`  will tail the logs and keep listening for new logs in your terminal session.
+* logs
+  * `--type` or `-t` indicates request type. Can be: RequestResponse, Event or DryRun.
 </p>
 </details>
 

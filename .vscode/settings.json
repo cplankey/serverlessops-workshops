@@ -1,0 +1,12 @@
+{
+    "cSpell.ignoreWords": [
+        "cloudformation",
+        "microservices",
+        "rydes"
+    ],
+    "cSpell.words": [
+        "RCUs",
+        "WCUs",
+        "autoscaling"
+    ]
+}
